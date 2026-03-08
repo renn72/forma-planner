@@ -1,7 +1,7 @@
 {
   "id": "/#planner",
   "name": "Forma Planner",
-  "short_name": "Forma",
+  "short_name": "Forma Planner",
   "description": "Mobile-first powerlifting meet planner with warmups, attempts, and score tracking.",
   "start_url": "/#planner",
   "scope": "/",
