@@ -25,6 +25,29 @@ const usageSteps = [
   },
 ]
 
+const installGuides = [
+  {
+    platform: "Android",
+    browser: "Chrome",
+    steps: [
+      "Open the deployed app in Chrome.",
+      "Tap the menu button, then choose Add to home screen and Install.",
+      "Follow the prompt to confirm installation.",
+      "Launch Forma from your home screen like a normal app.",
+    ],
+  },
+  {
+    platform: "Apple",
+    browser: "Safari on iPhone or iPad",
+    steps: [
+      "Open the deployed app in Safari.",
+      "Tap Share, then choose Add to Home Screen.",
+      "If Safari shows Open as Web App, leave that enabled.",
+      "Tap Add, then launch Forma from the home screen icon.",
+    ],
+  },
+]
+
 const attemptRounds = [
   {
     round: "Round 1",
@@ -88,6 +111,46 @@ export function InstructionsPage() {
             >
               <h3 className="text-base font-semibold">{step.title}</h3>
               <p className="mt-2 text-sm text-muted-foreground">{step.body}</p>
+            </div>
+          ))}
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg">Install to Home Screen</CardTitle>
+          <CardDescription>
+            Forma can be installed as a PWA. Use the production HTTPS site or a
+            localhost preview. Browser dev servers usually won&apos;t show the
+            full install flow.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="grid gap-4 lg:grid-cols-2">
+          {installGuides.map((guide) => (
+            <div
+              key={guide.platform}
+              className="rounded-2xl border border-border/60 bg-gradient-to-br from-background/80 to-accent/15 p-4"
+            >
+              <div className="flex items-center justify-between gap-3">
+                <h3 className="text-base font-semibold">{guide.platform}</h3>
+                <span className="rounded-full bg-muted px-3 py-1 text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase">
+                  {guide.browser}
+                </span>
+              </div>
+
+              <div className="mt-3 space-y-2">
+                {guide.steps.map((step, index) => (
+                  <div
+                    key={step}
+                    className="rounded-xl border border-border/50 bg-background/70 px-3 py-2 text-sm text-muted-foreground"
+                  >
+                    <span className="mr-2 font-semibold text-foreground">
+                      {index + 1}.
+                    </span>
+                    {step}
+                  </div>
+                ))}
+              </div>
             </div>
           ))}
         </CardContent>

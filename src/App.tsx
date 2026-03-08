@@ -1,55 +1,55 @@
-import { useEffect, useState } from "react"
-import { useAtomValue } from "jotai"
-import { currentPlanAtom } from "@/store/atoms"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { PlanSelector } from "@/components/PlanSelector"
-import { SettingsPanel } from "@/components/SettingsPanel"
-import { LiftPanel } from "@/components/LiftPanel"
-import { StatsDisplay } from "@/components/StatsDisplay"
-import { InstructionsPage } from "@/components/InstructionsPage"
-import { Button } from "@/components/ui/button"
+import { useAtomValue } from "jotai";
+import { useEffect, useState } from "react";
+import { InstructionsPage } from "@/components/InstructionsPage";
+import { LiftPanel } from "@/components/LiftPanel";
+import { PlanSelector } from "@/components/PlanSelector";
+import { SettingsPanel } from "@/components/SettingsPanel";
+import { StatsDisplay } from "@/components/StatsDisplay";
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { currentPlanAtom } from "@/store/atoms";
 
-type AppView = "planner" | "instructions"
+type AppView = "planner" | "instructions";
 
 const getViewFromHash = (hash: string): AppView => {
-  return hash === "#instructions" ? "instructions" : "planner"
-}
+  return hash === "#instructions" ? "instructions" : "planner";
+};
 
 export function App() {
-  const currentPlan = useAtomValue(currentPlanAtom)
+  const currentPlan = useAtomValue(currentPlanAtom);
   const [view, setView] = useState<AppView>(() => {
     if (typeof window === "undefined") {
-      return "planner"
+      return "planner";
     }
 
-    return getViewFromHash(window.location.hash)
-  })
+    return getViewFromHash(window.location.hash);
+  });
 
   useEffect(() => {
     const handleHashChange = () => {
-      setView(getViewFromHash(window.location.hash))
-    }
+      setView(getViewFromHash(window.location.hash));
+    };
 
-    window.addEventListener("hashchange", handleHashChange)
-    return () => window.removeEventListener("hashchange", handleHashChange)
-  }, [])
+    window.addEventListener("hashchange", handleHashChange);
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, []);
 
   useEffect(() => {
-    const nextHash = view === "instructions" ? "#instructions" : "#planner"
+    const nextHash = view === "instructions" ? "#instructions" : "#planner";
 
     if (window.location.hash !== nextHash) {
-      window.history.replaceState(null, "", nextHash)
+      window.history.replaceState(null, "", nextHash);
     }
-  }, [view])
+  }, [view]);
 
   return (
     <div className="min-h-screen">
-      <div className="mx-auto max-w-3xl px-4 py-5 sm:px-6 sm:py-8">
-        <header className="mb-8 space-y-5 rounded-[1.75rem] border border-border/60 bg-card/75 px-4 py-5 shadow-[0_24px_60px_-40px_rgba(15,23,42,0.22)] backdrop-blur-sm sm:px-5">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-            <div className="flex items-center gap-3.5">
+      <div className="py-5 px-4 mx-auto max-w-3xl sm:py-8 sm:px-6">
+        <header className="py-5 px-4 mb-8 space-y-5 border sm:px-5 rounded-[1.75rem] border-border/60 bg-card/75 shadow-[0_24px_60px_-40px_rgba(15,23,42,0.22)] backdrop-blur-sm">
+          <div className="flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-start">
+            <div className="flex gap-3.5 items-center">
               <span
-                className="flex h-10 w-10 items-center justify-center rounded-xl text-base font-black shadow-sm"
+                className="flex justify-center items-center w-10 h-10 text-base font-black rounded-xl shadow-sm"
                 style={{
                   background:
                     "linear-gradient(145deg, #f4ddb0 0%, #e8b96a 46%, #b2732e 100%)",
@@ -62,18 +62,18 @@ export function App() {
                 <strong className="text-lg font-semibold tracking-[0.02em]">
                   Planner
                 </strong>
-                <small className="text-xs tracking-[0.24em] text-muted-foreground uppercase">
+                <small className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
                   Forma by WSYS
                 </small>
               </div>
             </div>
 
-            <div className="flex rounded-2xl border border-border/60 bg-muted/55 p-1">
+            <div className="flex gap-2 justify-center p-1 rounded-2xl border border-border/60 bg-muted/55">
               <Button
                 size="sm"
                 variant={view === "planner" ? "default" : "ghost"}
                 onClick={() => setView("planner")}
-                className="min-w-24"
+                className="min-w-28"
               >
                 Planner
               </Button>
@@ -81,7 +81,7 @@ export function App() {
                 size="sm"
                 variant={view === "instructions" ? "default" : "ghost"}
                 onClick={() => setView("instructions")}
-                className="min-w-24"
+                className="min-w-28"
               >
                 Instructions
               </Button>
@@ -91,7 +91,7 @@ export function App() {
           {view === "planner" ? (
             <PlanSelector />
           ) : (
-            <div className="rounded-2xl border border-border/60 bg-gradient-to-r from-background/80 to-accent/15 px-4 py-3 text-sm text-muted-foreground">
+            <div className="py-3 px-4 text-sm bg-gradient-to-r rounded-2xl border border-border/60 from-background/80 to-accent/15 text-muted-foreground">
               Built-in guide for how to use the planner and how the attempt,
               warmup, and scoring calculations work.
             </div>
@@ -105,7 +105,7 @@ export function App() {
             <SettingsPanel />
             <StatsDisplay />
 
-            <Tabs defaultValue="squat" className="w-full gap-4">
+            <Tabs defaultValue="squat" className="gap-4 w-full">
               <TabsList className="w-full">
                 <TabsTrigger value="squat" className="flex-1">
                   Squat
@@ -132,8 +132,8 @@ export function App() {
             </Tabs>
           </div>
         ) : (
-          <div className="flex h-[58vh] items-center justify-center">
-            <div className="space-y-2 rounded-[1.5rem] border border-border/60 bg-card/70 px-6 py-8 text-center shadow-sm backdrop-blur-sm">
+          <div className="flex justify-center items-center h-[58vh]">
+            <div className="py-8 px-6 space-y-2 text-center border shadow-sm rounded-[1.5rem] border-border/60 bg-card/70 backdrop-blur-sm">
               <p className="text-lg font-semibold text-foreground">
                 No plan selected
               </p>
@@ -145,7 +145,7 @@ export function App() {
         )}
       </div>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
