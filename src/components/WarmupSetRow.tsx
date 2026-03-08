@@ -1,8 +1,8 @@
-import { useState } from 'react'
-import { CheckCircle, X } from '@phosphor-icons/react'
-import { cn } from '@/lib/utils'
-import type { WarmupSet } from '@/types'
-import { InputDialog } from './InputDialog'
+import { useState } from "react"
+import { CheckCircle, X } from "@phosphor-icons/react"
+import { cn } from "@/lib/utils"
+import type { WarmupSet } from "@/types"
+import { InputDialog } from "./InputDialog"
 
 interface WarmupSetRowProps {
   set: WarmupSet
@@ -11,7 +11,12 @@ interface WarmupSetRowProps {
   onClear: () => void
 }
 
-export function WarmupSetRow({ set, index, onUpdate, onClear }: WarmupSetRowProps) {
+export function WarmupSetRow({
+  set,
+  index,
+  onUpdate,
+  onClear,
+}: WarmupSetRowProps) {
   const [weightDialogOpen, setWeightDialogOpen] = useState(false)
   const [repsDialogOpen, setRepsDialogOpen] = useState(false)
 
@@ -21,48 +26,50 @@ export function WarmupSetRow({ set, index, onUpdate, onClear }: WarmupSetRowProp
     <>
       <div
         className={cn(
-          'grid grid-cols-12 items-center gap-2 py-2 text-sm transition-colors',
-          set.isComplete && 'text-primary',
-          !set.weight && 'opacity-50',
+          "grid grid-cols-12 items-center gap-2 py-3 text-base transition-colors",
+          set.isComplete && "text-primary",
+          !set.weight && "opacity-50"
         )}
       >
         <button
           className={cn(
-            'col-span-4 text-center font-medium',
-            set.weight && 'hover:text-primary',
+            "col-span-4 rounded-lg px-2 py-1 text-center font-semibold",
+            set.weight && "hover:bg-accent/20 hover:text-primary"
           )}
           onClick={() => setWeightDialogOpen(true)}
         >
-          {set.weight ? `${set.weight}kg` : '-'}
+          {set.weight ? `${set.weight}kg` : "-"}
         </button>
 
         <button
-          className="col-span-3 text-center text-xs text-muted-foreground hover:text-foreground"
+          className="col-span-3 rounded-lg px-2 py-1 text-center text-sm font-medium text-muted-foreground hover:bg-accent/20 hover:text-foreground"
           onClick={() => setRepsDialogOpen(true)}
         >
-          {set.reps || '-'}
+          {set.reps || "-"}
         </button>
 
         <div className="col-span-2 flex justify-center">
           <button
             onClick={onClear}
-            className="text-muted-foreground hover:text-foreground"
+            className="rounded-full p-1 text-muted-foreground hover:bg-accent/25 hover:text-foreground"
           >
-            <X className="size-3.5" />
+            <X className="size-4" />
           </button>
         </div>
 
-        <div className="col-span-3 flex justify-end">
+        <div className="col-span-3 flex justify-center">
           <button
             onClick={() => onUpdate({ ...set, isComplete: !set.isComplete })}
             className={cn(
-              'transition-colors',
-              set.isComplete ? 'text-primary' : 'text-muted-foreground hover:text-foreground',
+              "rounded-full p-1 transition-colors",
+              set.isComplete
+                ? "bg-primary/12 text-primary"
+                : "text-muted-foreground hover:bg-accent/25 hover:text-foreground"
             )}
           >
             <CheckCircle
-              className="size-5"
-              weight={set.isComplete ? 'fill' : 'regular'}
+              className="size-6"
+              weight={set.isComplete ? "fill" : "regular"}
             />
           </button>
         </div>

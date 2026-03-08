@@ -1,31 +1,34 @@
-import { useAtomValue } from 'jotai'
-import { currentPlanAtom } from '@/store/atoms'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { PlanSelector } from '@/components/PlanSelector'
-import { SettingsPanel } from '@/components/SettingsPanel'
-import { LiftPanel } from '@/components/LiftPanel'
-import { StatsDisplay } from '@/components/StatsDisplay'
+import { useAtomValue } from "jotai"
+import { currentPlanAtom } from "@/store/atoms"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { PlanSelector } from "@/components/PlanSelector"
+import { SettingsPanel } from "@/components/SettingsPanel"
+import { LiftPanel } from "@/components/LiftPanel"
+import { StatsDisplay } from "@/components/StatsDisplay"
 
 export function App() {
   const currentPlan = useAtomValue(currentPlanAtom)
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="mx-auto max-w-2xl px-4 py-6">
-        <header className="mb-6 space-y-4">
-          <div className="flex items-center gap-3">
+    <div className="min-h-screen">
+      <div className="mx-auto max-w-3xl px-4 py-5 sm:px-6 sm:py-8">
+        <header className="mb-8 space-y-5 rounded-[1.75rem] border border-border/60 bg-card/75 px-4 py-5 shadow-[0_24px_60px_-40px_rgba(15,23,42,0.22)] backdrop-blur-sm sm:px-5">
+          <div className="flex items-center gap-3.5">
             <span
-              className="flex h-8 w-8 items-center justify-center rounded-md text-sm font-black"
+              className="flex h-10 w-10 items-center justify-center rounded-xl text-base font-black shadow-sm"
               style={{
-                background: 'linear-gradient(135deg, #f7d58a 0%, #e0a64b 48%, #9e6420 100%)',
-                color: '#121216',
+                background:
+                  "linear-gradient(145deg, #f4ddb0 0%, #e8b96a 46%, #b2732e 100%)",
+                color: "#24170c",
               }}
             >
               F
             </span>
             <div className="flex flex-col leading-tight">
-              <strong className="text-base font-semibold tracking-wide">Planner</strong>
-              <small className="text-[0.65rem] uppercase tracking-widest text-muted-foreground">
+              <strong className="text-lg font-semibold tracking-[0.02em]">
+                Planner
+              </strong>
+              <small className="text-xs tracking-[0.24em] text-muted-foreground uppercase">
                 Forma by WSYS
               </small>
             </div>
@@ -34,11 +37,11 @@ export function App() {
         </header>
 
         {currentPlan ? (
-          <div className="space-y-4">
+          <div className="space-y-5">
             <SettingsPanel />
             <StatsDisplay />
 
-            <Tabs defaultValue="squat" className="w-full">
+            <Tabs defaultValue="squat" className="w-full gap-4">
               <TabsList className="w-full">
                 <TabsTrigger value="squat" className="flex-1">
                   Squat
@@ -65,10 +68,12 @@ export function App() {
             </Tabs>
           </div>
         ) : (
-          <div className="flex h-[60vh] items-center justify-center">
-            <div className="text-center space-y-2">
-              <p className="text-muted-foreground">No plan selected</p>
-              <p className="text-xs text-muted-foreground">
+          <div className="flex h-[58vh] items-center justify-center">
+            <div className="space-y-2 rounded-[1.5rem] border border-border/60 bg-card/70 px-6 py-8 text-center shadow-sm backdrop-blur-sm">
+              <p className="text-lg font-semibold text-foreground">
+                No plan selected
+              </p>
+              <p className="text-sm text-muted-foreground">
                 Create a new plan to get started
               </p>
             </div>

@@ -1,14 +1,14 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from "react"
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogFooter,
-} from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { CheckCircle, XCircle, Trash } from '@phosphor-icons/react'
+} from "@/components/ui/dialog"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { CheckCircle, XCircle, Trash } from "@phosphor-icons/react"
 
 interface InputDialogProps {
   open: boolean
@@ -30,9 +30,9 @@ export function InputDialog({
   open,
   onOpenChange,
   onSave,
-  initialValue = '',
-  title = 'Edit Value',
-  placeholder = '',
+  initialValue = "",
+  title = "Edit Value",
+  placeholder = "",
   multiline = false,
   showOutcomeButtons = false,
   onComplete,
@@ -62,17 +62,17 @@ export function InputDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[300px]">
+      <DialogContent className="sm:max-w-[340px]">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
         </DialogHeader>
-        <div className="py-4">
+        <div className="py-1">
           {multiline ? (
             <textarea
               placeholder={placeholder}
               value={value}
               onChange={(e) => setValue(e.target.value)}
-              className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex min-h-[112px] w-full rounded-xl border border-input bg-background/80 px-3 py-3 text-base leading-6 ring-offset-background placeholder:text-muted-foreground/80 focus-visible:ring-2 focus-visible:ring-ring/25 focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
             />
           ) : (
             <Input
@@ -85,37 +85,48 @@ export function InputDialog({
         </div>
 
         {showOutcomeButtons && (
-          <div className="flex justify-center gap-4 pb-4">
+          <div className="flex justify-center gap-3 pb-2">
             <button
               onClick={() => handleComplete(true)}
               disabled={isComplete && isGoodLift === true}
-              className={`flex flex-col items-center gap-1 p-3 rounded-lg transition-all ${
+              className={`flex min-w-28 flex-col items-center gap-2 rounded-2xl border border-border/60 p-4 transition-all ${
                 isComplete && isGoodLift === true
-                  ? 'bg-green-500/20 text-green-500'
-                  : 'hover:bg-green-500/10 text-muted-foreground hover:text-green-500'
+                  ? "bg-emerald-500/18 text-emerald-600 dark:text-emerald-300"
+                  : "text-muted-foreground hover:bg-emerald-500/10 hover:text-emerald-600 dark:hover:text-emerald-300"
               }`}
             >
-              <CheckCircle className="size-8" weight={isComplete && isGoodLift === true ? 'fill' : 'regular'} />
-              <span className="text-xs">Good</span>
+              <CheckCircle
+                className="size-10"
+                weight={isComplete && isGoodLift === true ? "fill" : "regular"}
+              />
+              <span className="text-sm font-medium">Good</span>
             </button>
             <button
               onClick={() => handleComplete(false)}
               disabled={isComplete && isGoodLift === false}
-              className={`flex flex-col items-center gap-1 p-3 rounded-lg transition-all ${
+              className={`flex min-w-28 flex-col items-center gap-2 rounded-2xl border border-border/60 p-4 transition-all ${
                 isComplete && isGoodLift === false
-                  ? 'bg-red-500/20 text-red-500'
-                  : 'hover:bg-red-500/10 text-muted-foreground hover:text-red-500'
+                  ? "bg-rose-500/18 text-rose-600 dark:text-rose-300"
+                  : "text-muted-foreground hover:bg-rose-500/10 hover:text-rose-600 dark:hover:text-rose-300"
               }`}
             >
-              <XCircle className="size-8" weight={isComplete && isGoodLift === false ? 'fill' : 'regular'} />
-              <span className="text-xs">Bad</span>
+              <XCircle
+                className="size-10"
+                weight={isComplete && isGoodLift === false ? "fill" : "regular"}
+              />
+              <span className="text-sm font-medium">Bad</span>
             </button>
           </div>
         )}
 
-        <DialogFooter className="gap-2">
+        <DialogFooter className="gap-3 pt-1">
           {isFourthRound && onRemoveFourth && (
-            <Button variant="destructive" onClick={onRemoveFourth} className="mr-auto">
+            <Button
+              variant="destructive"
+              size="icon-sm"
+              onClick={onRemoveFourth}
+              className="mr-auto"
+            >
               <Trash className="size-4" />
             </Button>
           )}

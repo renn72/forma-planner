@@ -1,16 +1,16 @@
-import { useAtom } from 'jotai'
-import { currentPlanAtom, createLiftDataFromTarget } from '@/store/atoms'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { useAtom } from "jotai"
+import { currentPlanAtom, createLiftDataFromTarget } from "@/store/atoms"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import type { LiftType } from '@/types'
+} from "@/components/ui/select"
+import type { LiftType } from "@/types"
 
 export function SettingsPanel() {
   const [plan, setPlan] = useAtom(currentPlanAtom)
@@ -29,7 +29,7 @@ export function SettingsPanel() {
 
   const updateTarget = (liftType: LiftType, target: number) => {
     const liftData = createLiftDataFromTarget(target)
-    
+
     setPlan({
       ...plan,
       settings: {
@@ -45,36 +45,32 @@ export function SettingsPanel() {
 
   return (
     <Card>
-      <CardHeader className="pb-3">
-        <CardTitle className="text-base">Settings</CardTitle>
+      <CardHeader className="pb-2">
+        <CardTitle className="text-lg">Settings</CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="grid grid-cols-2 gap-3">
-          <div className="space-y-1.5">
-            <Label htmlFor="bodyweight" className="text-xs">
-              Bodyweight (kg)
-            </Label>
+      <CardContent className="space-y-5">
+        <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label htmlFor="bodyweight">Bodyweight (kg)</Label>
             <Input
               id="bodyweight"
               type="number"
               placeholder="0"
-              value={plan.settings.bodyweight || ''}
+              value={plan.settings.bodyweight || ""}
               onChange={(e) =>
-                updateSetting('bodyweight', parseFloat(e.target.value) || 0)
+                updateSetting("bodyweight", parseFloat(e.target.value) || 0)
               }
-              className="h-8"
+              className="h-11"
             />
           </div>
 
-          <div className="space-y-1.5">
-            <Label htmlFor="gender" className="text-xs">
-              Gender
-            </Label>
+          <div className="space-y-2">
+            <Label htmlFor="gender">Gender</Label>
             <Select
               value={plan.settings.gender}
-              onValueChange={(value) => updateSetting('gender', value)}
+              onValueChange={(value) => updateSetting("gender", value)}
             >
-              <SelectTrigger id="gender" className="h-8">
+              <SelectTrigger id="gender" className="h-11">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -85,54 +81,65 @@ export function SettingsPanel() {
           </div>
         </div>
 
-        <div className="space-y-2">
-          <Label className="text-xs font-medium">Targets (kg)</Label>
-          <div className="grid grid-cols-3 gap-2">
-            <div className="space-y-1">
-              <Label htmlFor="squatTarget" className="text-[0.65rem] text-muted-foreground">
+        <div className="space-y-3 rounded-2xl bg-muted/55 p-3.5">
+          <Label className="font-semibold tracking-[0.14em] text-muted-foreground uppercase">
+            Targets (kg)
+          </Label>
+          <div className="grid grid-cols-3 gap-3">
+            <div className="space-y-2">
+              <Label
+                htmlFor="squatTarget"
+                className="text-sm text-muted-foreground"
+              >
                 Squat
               </Label>
               <Input
                 id="squatTarget"
                 type="number"
                 placeholder="0"
-                value={plan.settings.squatTarget || ''}
+                value={plan.settings.squatTarget || ""}
                 onChange={(e) =>
-                  updateTarget('squat', parseFloat(e.target.value) || 0)
+                  updateTarget("squat", parseFloat(e.target.value) || 0)
                 }
-                className="h-8"
+                className="h-11"
               />
             </div>
 
-            <div className="space-y-1">
-              <Label htmlFor="benchTarget" className="text-[0.65rem] text-muted-foreground">
+            <div className="space-y-2">
+              <Label
+                htmlFor="benchTarget"
+                className="text-sm text-muted-foreground"
+              >
                 Bench
               </Label>
               <Input
                 id="benchTarget"
                 type="number"
                 placeholder="0"
-                value={plan.settings.benchTarget || ''}
+                value={plan.settings.benchTarget || ""}
                 onChange={(e) =>
-                  updateTarget('bench', parseFloat(e.target.value) || 0)
+                  updateTarget("bench", parseFloat(e.target.value) || 0)
                 }
-                className="h-8"
+                className="h-11"
               />
             </div>
 
-            <div className="space-y-1">
-              <Label htmlFor="deadliftTarget" className="text-[0.65rem] text-muted-foreground">
+            <div className="space-y-2">
+              <Label
+                htmlFor="deadliftTarget"
+                className="text-sm text-muted-foreground"
+              >
                 Deadlift
               </Label>
               <Input
                 id="deadliftTarget"
                 type="number"
                 placeholder="0"
-                value={plan.settings.deadliftTarget || ''}
+                value={plan.settings.deadliftTarget || ""}
                 onChange={(e) =>
-                  updateTarget('deadlift', parseFloat(e.target.value) || 0)
+                  updateTarget("deadlift", parseFloat(e.target.value) || 0)
                 }
-                className="h-8"
+                className="h-11"
               />
             </div>
           </div>

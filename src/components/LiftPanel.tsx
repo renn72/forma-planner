@@ -1,11 +1,11 @@
-import { useAtom } from 'jotai'
-import { currentPlanAtom } from '@/store/atoms'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Textarea } from '@/components/ui/textarea'
-import { WarmupSetRow } from './WarmupSetRow'
-import { AttemptSelector } from './AttemptSelector'
-import type { LiftData, LiftType, WarmupSet, RoundData } from '@/types'
-import { generateId } from '@/lib/helpers'
+import { useAtom } from "jotai"
+import { currentPlanAtom } from "@/store/atoms"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Textarea } from "@/components/ui/textarea"
+import { WarmupSetRow } from "./WarmupSetRow"
+import { AttemptSelector } from "./AttemptSelector"
+import type { LiftData, LiftType, WarmupSet, RoundData } from "@/types"
+import { generateId } from "@/lib/helpers"
 
 interface LiftPanelProps {
   liftType: LiftType
@@ -38,8 +38,8 @@ export function LiftPanel({ liftType }: LiftPanelProps) {
     const newWarmups = [...liftData.warmups]
     newWarmups[index] = {
       ...newWarmups[index],
-      weight: '',
-      reps: '',
+      weight: "",
+      reps: "",
       isComplete: false,
     }
     updateLiftData({ ...liftData, warmups: newWarmups })
@@ -96,20 +96,20 @@ export function LiftPanel({ liftType }: LiftPanelProps) {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-5">
       <Card>
-        <CardHeader className="pb-2">
-          <CardTitle className="text-base">Warmup</CardTitle>
+        <CardHeader className="pb-1">
+          <CardTitle className="text-lg">Warmup</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="border rounded-lg">
-            <div className="grid grid-cols-12 gap-2 px-3 py-2 text-xs font-medium text-muted-foreground border-b">
+          <div className="overflow-hidden rounded-2xl border border-border/60 bg-muted/35">
+            <div className="grid grid-cols-12 gap-3 border-b border-border/70 bg-background/65 px-4 py-3 text-sm font-semibold text-muted-foreground">
               <div className="col-span-4 text-center">Weight</div>
               <div className="col-span-3 text-center">Reps</div>
               <div className="col-span-2 text-center">Clear</div>
               <div className="col-span-3 text-center">Done</div>
             </div>
-            <div className="divide-y divide-dashed p-3">
+            <div className="divide-y divide-dashed divide-border/80 p-3 sm:p-4">
               {liftData.warmups.map((warmupSet: WarmupSet, index: number) => (
                 <WarmupSetRow
                   key={warmupSet.id}
@@ -125,11 +125,11 @@ export function LiftPanel({ liftType }: LiftPanelProps) {
       </Card>
 
       <Card>
-        <CardHeader className="pb-2">
-          <CardTitle className="text-base">Attempts</CardTitle>
+        <CardHeader className="pb-1">
+          <CardTitle className="text-lg">Attempts</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="divide-y divide-dashed border rounded-lg">
+          <div className="divide-y divide-dashed divide-border/80 overflow-hidden rounded-2xl border border-border/60 bg-muted/35">
             {liftData.rounds.map((round: RoundData, index: number) => {
               const roundNumber = index + 1
               const isFourth = index === 3
@@ -140,7 +140,9 @@ export function LiftPanel({ liftType }: LiftPanelProps) {
                   key={round.id}
                   roundNumber={roundNumber}
                   roundData={round}
-                  onUpdateRound={(updatedRound) => updateRound(index, updatedRound)}
+                  onUpdateRound={(updatedRound) =>
+                    updateRound(index, updatedRound)
+                  }
                   canAddFourth={canAddFourth}
                   onAddFourth={addFourthRound}
                   isFourth={isFourth}
@@ -153,15 +155,17 @@ export function LiftPanel({ liftType }: LiftPanelProps) {
       </Card>
 
       <Card>
-        <CardHeader className="pb-2">
-          <CardTitle className="text-base">Notes</CardTitle>
+        <CardHeader className="pb-1">
+          <CardTitle className="text-lg">Notes</CardTitle>
         </CardHeader>
         <CardContent>
           <Textarea
             placeholder="Add notes for this lift..."
-            value={liftData.notes || ''}
-            onChange={(e) => updateLiftData({ ...liftData, notes: e.target.value })}
-            className="min-h-[80px] resize-none"
+            value={liftData.notes || ""}
+            onChange={(e) =>
+              updateLiftData({ ...liftData, notes: e.target.value })
+            }
+            className="min-h-[120px] resize-none"
           />
         </CardContent>
       </Card>

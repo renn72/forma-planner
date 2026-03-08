@@ -1,16 +1,21 @@
-import { useState } from 'react'
-import { useAtom, useAtomValue, useSetAtom } from 'jotai'
-import { Plus, Trash } from '@phosphor-icons/react'
-import { plansAtom, currentPlanIdAtom, addPlanAtom, deletePlanAtom } from '@/store/atoms'
-import { Button } from '@/components/ui/button'
+import { useState } from "react"
+import { useAtom, useAtomValue, useSetAtom } from "jotai"
+import { Plus, Trash } from "@phosphor-icons/react"
+import {
+  plansAtom,
+  currentPlanIdAtom,
+  addPlanAtom,
+  deletePlanAtom,
+} from "@/store/atoms"
+import { Button } from "@/components/ui/button"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { InputDialog } from './InputDialog'
+} from "@/components/ui/select"
+import { InputDialog } from "./InputDialog"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -20,8 +25,8 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from '@/components/ui/alert-dialog'
-import type { Plan } from '@/types'
+} from "@/components/ui/alert-dialog"
+import type { Plan } from "@/types"
 
 export function PlanSelector() {
   const plans = useAtomValue(plansAtom)
@@ -36,9 +41,9 @@ export function PlanSelector() {
 
   return (
     <>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-3">
         {plans.length > 0 ? (
-          <Select value={currentPlanId || ''} onValueChange={setCurrentPlanId}>
+          <Select value={currentPlanId || ""} onValueChange={setCurrentPlanId}>
             <SelectTrigger className="flex-1">
               <SelectValue placeholder="Select a plan" />
             </SelectTrigger>
@@ -51,24 +56,28 @@ export function PlanSelector() {
             </SelectContent>
           </Select>
         ) : (
-          <div className="flex-1 text-sm text-muted-foreground">No plans yet</div>
+          <div className="flex-1 text-base text-muted-foreground">
+            No plans yet
+          </div>
         )}
 
         <Button
           size="icon-sm"
           variant="outline"
+          className="shrink-0"
           onClick={() => setNewPlanDialogOpen(true)}
         >
-          <Plus className="size-3.5" />
+          <Plus className="size-4" />
         </Button>
 
         {currentPlan && plans.length > 0 && (
           <Button
             size="icon-sm"
             variant="outline"
+            className="shrink-0"
             onClick={() => setDeleteDialogOpen(true)}
           >
-            <Trash className="size-3.5" />
+            <Trash className="size-4" />
           </Button>
         )}
       </div>
@@ -90,7 +99,8 @@ export function PlanSelector() {
           <AlertDialogHeader>
             <AlertDialogTitle>Delete Plan</AlertDialogTitle>
             <AlertDialogDescription>
-              Are you sure you want to delete "{currentPlan?.name}"? This action cannot be undone.
+              Are you sure you want to delete "{currentPlan?.name}"? This action
+              cannot be undone.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -101,7 +111,7 @@ export function PlanSelector() {
                   deletePlan(currentPlanId)
                 }
               }}
-              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              className="text-destructive-foreground bg-destructive hover:bg-destructive/90"
             >
               Delete
             </AlertDialogAction>
